@@ -5,6 +5,9 @@ var request = require('request'); // Snatches html from urls
 var cheerio = require('cheerio'); // Scrapes our html
 var bodyParser = require('body-parser');
 
+// makes static content in assets accessible
+app.use(express.static(process.cwd() + '/app'));	
+
 // BodyParser interprets data sent to the server
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -66,7 +69,7 @@ request('http://www.orlandoweekly.com/blogs/Blogs/', function (error, response, 
 
 });
 
-
+require('./routing/html-routes.js')(app);
 
 // set app to run at port 3000
 app.listen(3000, function() {
