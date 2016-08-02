@@ -35,41 +35,8 @@ app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
 
-// Make a request call to grab the html body from the site of your choice
-request('http://www.orlandoweekly.com/blogs/Blogs/', function (error, response, html) {
 
-// Load the html into cheerio and save it to a var.
-  var $ = cheerio.load(html);
-
-  // an empty array to save the data that we'll scrape
-  var result = [];
-
-  //the title and link scrapped from Orlando News
-  $('h3.postTitle').each(function(i, element){
-      var title = $(this).text();
-      var link = $(this).find('a').attr('href');
-
-      result.push({
-        Title: title,
-        Link: link
-      });
-    });
-
-  //the body summary from Orlando News
-  $('.postBody').each(function(i, element){
-      var textSumm = $(this).text();
-      var link = $(this).find('.postSummary')
-
-      result.push({
-        body: textSumm    
-      });
-   	});
-  
-  console.log(result);
-
-});
-
-require('./routing/html-routes.js')(app);
+require('./routing/html-routes.js')(app, request, cheerio, db);
 
 // set app to run at port 3000
 app.listen(3000, function() {
