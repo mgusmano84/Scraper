@@ -33,6 +33,7 @@ module.exports = function(app, request, cheerio, db) {
 	      //this will insert the article title
 	      var photo = $(this).find('.storyTeaser').find('img').attr('src');
 
+
 	      //if there the title is not empty or blank
 	      if (title !== '') {
           
@@ -40,6 +41,7 @@ module.exports = function(app, request, cheerio, db) {
           result.Link= link;
           result.Summary = summ;
           result.Photo= photo;
+          result.Comment = [];
 
           //this will save the pulled data in the article collection
           db.article.save(result, function (err, docs) {
@@ -53,54 +55,17 @@ module.exports = function(app, request, cheerio, db) {
       });
       res.send("worked");
 
-  });
+  	});
+	});
 
 	app.get('/show', function(req, res) {
 
 		db.article.find({}, function (err, docs) {
 	  	if (err) throw err;
 	  	res.send(docs)
-		})
+		
+		});
 	});
-});
-
-
-// // Make a request call to grab the html body from the site of your choice
-// request('http://www.orlandoweekly.com/blogs/Blogs/', function (error, response, html) {
-
-// // Load the html into cheerio and save it to a var.
-//   var $ = cheerio.load(html);
-
-//   // an empty array to save the data that we'll scrape
-//   var result = [];
-
-//   //the title and link scrapped from Orlando News
-//   $('h3.postTitle').each(function(i, element){
-//       var title = $(this).text();
-//       var link = $(this).find('a').attr('href');
-
-//       result.push({
-//         Title: title,
-//         Link: link
-//       });
-//     });
-
-//   //the body summary from Orlando News
-//   $('.postBody').each(function(i, element){
-//       var textSumm = $(this).text();
-//       var link = $(this).find('.postSummary')
-
-//       result.push({
-//         body: textSumm    
-//       });
-//    	});
-  
-//   console.log(result);
-
-// });
-
-
-
 
 
 
