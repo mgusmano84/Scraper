@@ -17,24 +17,41 @@ module.exports = function(app, request, cheerio, db) {
 
 	  //the title and link scrapped from Orlando News
 	    $('h3.postTitle').each(function(i, element){
+
+	      var result = {};
+
+	      //this will insert the article title
 	      var title = $(this).text();
+	      //this will insert the article title
 	      var link = $(this).find('a').attr('href');
 
-        var result = {
-          awesomeTitle: title,
-          amazingLink: link
-        };
+	      //if there the title is not empty or blank
+	      if (title !== '') {
+          
+          result.Title= title;
+          result.Link= link;
 
-           db.article.insert(result, function (err, docs) {
+          //this will save the pulled data in the article collection
+          db.article.save(result, function (err, docs) {
     	           if (err) {
                         console.log(err);
                   } else {
                       console.log(docs);
                   }
             });
+         }
       });
       res.send("worked");
+
   });
+
+	app.get('/show', function(req, res) {
+
+		db.article.find({}, function (err, docs) {
+	  	if (err) throw err;
+	  	res.send(docs)
+		})
+	});
 });
 
 
