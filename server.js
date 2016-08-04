@@ -42,3 +42,5 @@ require('./routing/html-routes.js')(app, request, cheerio, db, mongojs);
 app.listen(3000, function() {
   console.log('App running on port 3000!');
 });
+
+// MONGODB_URI: mongodb://heroku_22nhrv8q:ais7q1h1s8ug0i9jp9pv352auu@ds035004.mlab.com:35004/heroku_22nhrv8q
