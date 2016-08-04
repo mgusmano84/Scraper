@@ -1,8 +1,8 @@
-// $(function() {
+$(function() {
     
 
-// 	$(".mainbutt").on('click', function() {
+	$(".mainbutt").on('click', function() {
 		
-// 	})
+	})
 
-// });
+});

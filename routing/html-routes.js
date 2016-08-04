@@ -4,15 +4,16 @@ module.exports = function(app, request, cheerio, db) {
 	//This will get the homepage upon start up of the website
     app.get('/', function(req, res) {
 
-      	db.article.find({}, function(err, data) {
+      	db.article.find({}).limit(5 ,function(err,data){
 		if (err) throw err;
-		res.render("home", {article: data});
+		res.render("home", {article: data}); 
+
 		})
                
     });
 
    
-    app.get('/info', function(req, res) {
+    app.get('/infopush', function(req, res) {
   
 	request('http://www.orlandoweekly.com/blogs/Blogs/', function (error, response, html) {
 
@@ -50,14 +51,39 @@ module.exports = function(app, request, cheerio, db) {
                   } else {
                       console.log(docs);
                   }
+
             });
+
+
          }
       });
       res.send("worked");
 
+
   	});
+	 //    db.article.find({}, function(err, data) {
+		// if (err) throw err;
+		// res.render("home", {article: data}); 
+		// });
 	});
 
+ //    //allows user to make comments
+ //    app.post('/makeComment', function(req, res) {
+	// //console.log(req.body);
+	// var newComment = {
+	// 		created: req.body.created,
+	// 		user: req.body.user,
+	// 		comment: req.body.comment,
+
+	// 	};
+	// db.articles.update({'_id': mongojs.ObjectId(req.body.id)}, {$push: {"Comment": newComment}}, function(err, data) {
+	// 	if (err) throw err;
+	// 	console.log(data);
+	// });
+	// res.send(newComment);
+	// });
+
+    //this will show all data pulled in a json
 	app.get('/show', function(req, res) {
 
 		db.article.find({}, function (err, docs) {

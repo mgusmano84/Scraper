@@ -9,7 +9,7 @@
 
 
 	  <p class="lead summ">
-	    <a class="btn btn-primary btn-lg mainbutt" href="#" role="button">Get News</a>
+	    <a class="btn btn-primary btn-lg mainbutt" href="/infopush" runat="server" role="button">Get News</a>
 	  </p>
 
 	  
@@ -18,24 +18,48 @@
 	
 		  <div class="row">
 		  	    <div class="col-md-6">
-		  	    	{{#each article}}
+	
 		  	    	<div class="articlesMain">
 
-					<h4>Title: {{Title}}</h4>
-					<a href="{{Link}}">Full Article</a>
+					<h4>Title: {{article.[0].Title}}</h4>
+					<a href="{{article.[0].Link}}">Full Article</a>
 					</br>
-					<img src="{{Photo}}">
+					<img src="{{article.[0].Photo}}">
 					</br>
-					<p>{{Summary}}</p>
+					<p>{{article.[0].Summary}}</p>
 					
 
-			      {{!-- <h1 class="text">asdasdasdasda asd asd as das d asd as  asd as d as d asd as d as d asd as d asd as d as d</h1> --}}
 			   		 </div>
-			   		 {{/each}}
+			   		 
+			   		 
 			    </div>
+			    <div class="col-md-2"></div>
+			    <div class="col-md-4">
+
+			    	    	
+			    	<h3>Comments</h3>
+                	<div class="input-group">
+			    		<ul class="comments">
+		            	{{#each article.[0].Comment}}
+		             		<li >{{this}} <button type="button" class="btn btn-default btn-xs delete" data-text={{this}} ><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></li>
+		             	{{/each}}
+		             	</ul>
+
+
+
+		                <div class="input-group">
+                        	<input type="text" class="form-control" size="50" placeholder="your thoughts" id="userComment" data-id={{article.[0]._id}}>
+                        	<span class="input-group-btn">
+                        		<button class="btn btn-default" type="button" id="comment">Comment</button>
+                        	</span>
+                    	</div>
+                    </div>
+
+
 
 			    
-		  </div>
+		  		</div>
+		  		
 	 
 
 </div>
