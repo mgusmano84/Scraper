@@ -15,6 +15,21 @@ $('#comment').on('click',function(){
 })
 
 
+$(document).on('click','.delete',function(){
+	var comment = $(this).data('text');
+	var commentId =$('#userComment').data('id');
+	
+	$(this).parent().remove();
+	$.post("/delete", {'comments': comment, 'id': commentId },
+			    function(data){
+			    	if(data){
+			    		
+			    	console.log('success')
+			    }
+			    });
+})
+
+
 	// $(".mainbutt").on('click', function() {
 		
 	// })

@@ -61,27 +61,10 @@ module.exports = function(app, request, cheerio, db, mongojs) {
 
 
   	});
-	 //    db.article.find({}, function(err, data) {
-		// if (err) throw err;
-		// res.render("home", {article: data}); 
-		// });
+
 	});
 
- //    //allows user to make comments
- //    app.post('/makeComment', function(req, res) {
-	// //console.log(req.body);
-	// var newComment = {
-	// 		created: req.body.created,
-	// 		user: req.body.user,
-	// 		comment: req.body.comment,
 
-	// 	};
-	// db.articles.update({'_id': mongojs.ObjectId(req.body.id)}, {$push: {"Comment": newComment}}, function(err, data) {
-	// 	if (err) throw err;
-	// 	console.log(data);
-	// });
-	// res.send(newComment);
-	// });
 
     //this will show all data pulled in a json
 	app.get('/show', function(req, res) {
@@ -96,11 +79,19 @@ module.exports = function(app, request, cheerio, db, mongojs) {
 	app.post('/comment', function(req, res) {
 		console.log(req.body.comments);
 		console.log(req.body.id);
-		  db.article.update({'_id':mongojs.ObjectId(req.body.id)},{ $push: { 'comments': req.body.comments} }, function(err,data){
+		  db.article.update({'_id':mongojs.ObjectId(req.body.id)},{ $push: { 'Comment': req.body.comments} }, function(err,data){
 		    if(err) throw err;
 		        res.send(true);
   		  })
 	});
+
+	app.post('/delete', function(req, res) {
+
+		  db.article.update({'_id':mongojs.ObjectId(req.body.id)},{ $pull: { 'Comment': req.body.comments} }, function(err,data){
+    if(err) throw err;
+        res.send(true);
+  })
+	});	
 
 
 
