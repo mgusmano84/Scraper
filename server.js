@@ -35,7 +35,7 @@ app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
 
-
+//links all of the page routing
 require('./routing/html-routes.js')(app, request, cheerio, db, mongojs);
 
 // set app to run at port 3000

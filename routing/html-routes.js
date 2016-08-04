@@ -52,17 +52,13 @@ module.exports = function(app, request, cheerio, db, mongojs) {
                       console.log(docs);
                   }
 
-            });
-
-
-         }
-      });
+            });//closes db save
+         }//closes if statement
+      });//closes orlando weekly page scrub
       res.send("worked");
+  	});//closes request
 
-
-  	});
-
-	});
+	});//closes get /infopush
 
 
 
@@ -76,6 +72,7 @@ module.exports = function(app, request, cheerio, db, mongojs) {
 		});
 	});
 
+	//this allows users to make comments on articles
 	app.post('/comment', function(req, res) {
 		console.log(req.body.comments);
 		console.log(req.body.id);
@@ -85,12 +82,13 @@ module.exports = function(app, request, cheerio, db, mongojs) {
   		  })
 	});
 
+	//This allows users to delete their articles
 	app.post('/delete', function(req, res) {
 
-		  db.article.update({'_id':mongojs.ObjectId(req.body.id)},{ $pull: { 'Comment': req.body.comments} }, function(err,data){
-    if(err) throw err;
-        res.send(true);
-  })
+		db.article.update({'_id':mongojs.ObjectId(req.body.id)},{ $pull: { 'Comment': req.body.comments} }, function(err,data){
+    		if(err) throw err;
+        	res.send(true);
+  		})
 	});	
 
 

@@ -1,8 +1,6 @@
 $(function() {
     
-
-
-
+//this will allow users to make comments on articles which gets posted to the database through /comment
 $('#comment').on('click',function(){
 	var comment = $('#userComment').val().trim();
 	var commentId =$('#userComment').data('id');
@@ -14,7 +12,7 @@ $('#comment').on('click',function(){
 			    });
 })
 
-
+//this will allow comments to be deleted by accessing the id matched within the database
 $(document).on('click','.delete',function(){
 	var comment = $(this).data('text');
 	var commentId =$('#userComment').data('id');
