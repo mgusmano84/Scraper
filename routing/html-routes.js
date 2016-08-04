@@ -1,19 +1,9 @@
 module.exports = function(app, request, cheerio, db, mongojs) {
 
 
-	//This will get the homepage upon start up of the website
-    app.get('/', function(req, res) {
-
-      	db.article.find({}).limit(5 ,function(err,data){
-		if (err) throw err;
-		res.render("home", {article: data}); 
-
-		})
-               
-    });
 
    
-    app.get('/infopush', function(req, res) {
+    app.get('/', function(req, res) {
   
 	request('http://www.orlandoweekly.com/blogs/Blogs/', function (error, response, html) {
 
@@ -23,7 +13,7 @@ module.exports = function(app, request, cheerio, db, mongojs) {
 	  //the title and link scrapped from Orlando News
 	    $('.blogPost').each(function(i, element){
 
-	      var result = {};
+	      // var result = {};
 
 	      //this will insert the article title
 	      var title = $(this).find('h3.postTitle').text();
@@ -38,24 +28,25 @@ module.exports = function(app, request, cheerio, db, mongojs) {
 	      //if there the title is not empty or blank
 	      if (title !== '') {
           
-          result.Title= title;
-          result.Link= link;
-          result.Summary = summ;
-          result.Photo= photo;
-          result.Comment = [];
+          Title= title;
+          Link= link;
+          Summary = summ;
+          Photo= photo;
+          Comment = [];
 
           //this will save the pulled data in the article collection
-          db.article.save(result, function (err, docs) {
-    	           if (err) {
-                        console.log(err);
-                  } else {
-                      console.log(docs);
-                  }
+          db.article.update({ title: Title },{$setOnInsert: { title: Title,link: Link,summary: Summary, photo: Photo}},{ upsert: true });
+      	} 
+      	});
 
-            });//closes db save
-         }//closes if statement
-      });//closes orlando weekly page scrub
-      res.send("worked");
+      	 	          
+ 		//this will search the database for 5 most recent articles
+        db.article.find({}).limit(5 ,function(err,data){
+		if (err) throw err;
+		res.render("home", {article: data}); 
+		});
+
+      // res.send("worked");
   	});//closes request
 
 	});//closes get /infopush

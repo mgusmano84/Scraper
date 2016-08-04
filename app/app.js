@@ -29,7 +29,7 @@ $(document).on('click','.delete',function(){
 
 
 	// $(".mainbutt").on('click', function() {
-		
+		//still working on getting this to work so it only populates one article at a time
 	// })
 
 });
