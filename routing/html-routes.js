@@ -1,4 +1,4 @@
-module.exports = function(app, request, cheerio, db) {
+module.exports = function(app, request, cheerio, db, mongojs) {
 
 
 	//This will get the homepage upon start up of the website
@@ -91,6 +91,15 @@ module.exports = function(app, request, cheerio, db) {
 	  	res.send(docs)
 		
 		});
+	});
+
+	app.post('/comment', function(req, res) {
+		console.log(req.body.comments);
+		console.log(req.body.id);
+		  db.article.update({'_id':mongojs.ObjectId(req.body.id)},{ $push: { 'comments': req.body.comments} }, function(err,data){
+		    if(err) throw err;
+		        res.send(true);
+  		  })
 	});
 
 

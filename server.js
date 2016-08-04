@@ -36,7 +36,7 @@ app.set('view engine', 'handlebars');
 
 
 
-require('./routing/html-routes.js')(app, request, cheerio, db);
+require('./routing/html-routes.js')(app, request, cheerio, db, mongojs);
 
 // set app to run at port 3000
 app.listen(3000, function() {
