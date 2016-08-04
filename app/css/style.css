@@ -9,3 +9,11 @@
 .text {
 	font-size: 12px;
 }
+
+.back {
+	background-image: url("http://i.huffpost.com/gen/3456134/images/o-NEWSPAPERS-facebook.jpg");
+}
+
+.backmain {
+	background-image: url("http://static1.squarespace.com/static/51eafa47e4b047f24a8525e9/t/52043951e4b050b6ebfbd3b8/1376008647922/grunge-newspaper-background-554812.jpg?format=1500w");
+}
