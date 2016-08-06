@@ -16,7 +16,7 @@ app.use(bodyParser.json({type: 'application/vnd.api+json'}));
 
 //Database configuration
 var mongojs = require('mongojs');
-var databaseUrl = "OrlandoNews";
+var databaseUrl = "mongodb://heroku_22nhrv8q:ais7q1h1s8ug0i9jp9pv352auu@ds035004.mlab.com:35004/heroku_22nhrv8q";
 var collections = ["article"];
 
 // use mongojs to hook the database to the db variable 
