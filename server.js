@@ -4,7 +4,7 @@ var app = express();
 var request = require('request'); // Snatches html from urls
 var cheerio = require('cheerio'); // Scrapes our html
 var bodyParser = require('body-parser');
-
+var port =process.env.port || 3000;
 // makes static content in assets accessible
 app.use(express.static(process.cwd() + '/app'));	
 
@@ -39,7 +39,7 @@ app.set('view engine', 'handlebars');
 require('./routing/html-routes.js')(app, request, cheerio, db, mongojs);
 
 // set app to run at port 3000
-app.listen(3000, function() {
+app.listen(port, function() {
   console.log('App running on port 3000!');
 });
 
